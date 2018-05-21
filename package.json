@@ -8,13 +8,16 @@
     "build:server": "webpack --config build/webpack.config.server.js",
     "clean": "rimraf dist",
     "build": "npm run clean && npm run build:client && npm run build:server",
-    "start": "node server/server.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
+    "server": "cross-env NODE_ENV=development node server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.3",
+    "http-proxy-middleware": "^0.18.0",
+    "memory-fs": "^0.4.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },

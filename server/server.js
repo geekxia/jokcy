@@ -7,7 +7,12 @@ const fs = require('fs');
 const app = express();
 const isDev = process.env.NODE_ENV === 'development';
 
-if (!isDev) {
+if (isDev) {
+    // 开发环境时，没有dist目录
+    // const devStatic = require('./util/devStatic');
+    // devStatic(app);
+    console.log('这是开发环境');
+} else {
     app.use('/public', express.static(path.join(__dirname, '../dist')));
     let template = fs.readFileSync(path.join(__dirname, '../dist/index.html'), 'utf8');
     const serverScript = require('../dist/render.js').default; // 引入用于服务端渲染的脚本
@@ -17,9 +22,6 @@ if (!isDev) {
         template = template.replace('<!-- app -->', renderScript);
         res.send(template);
     });
-} else {
-    const devStatic = require('./util/devStatic');
-    devStatic(app);
 }
 
 
