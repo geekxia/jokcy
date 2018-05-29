@@ -17,6 +17,9 @@ let config = {
         // publicPath: '',
         publicPath: '/public/'
     },
+    resolve: {
+        extensions: ['.js', '.jsx', '.json']
+    },
     module: {
         rules: [
             {

@@ -4,12 +4,36 @@ const ReactSSR = require('react-dom/server');  // 用于服务端渲染的API
 const path = require('path');
 const fs = require('fs');
 const favicon = require('serve-favicon');  // 制作网站小图标
+const bodyParser = require('body-parser'); // 转换POST请求的body数据
+const session = require('express-session'); // 存储session
 
+/**
+*   基础变量
+*/
 const app = express();
 const isDev = process.env.NODE_ENV === 'development';
 
+/**
+*   中间件
+*/
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(session({
+    maxAge: 10 * 60 * 1000,
+    name: 'tid',
+    resave: false,
+    saveUninitialized: false,
+    secret: 'react node class'
+}));
+
 app.use(favicon(path.join(__dirname, '../favicon.ico')))
 
+
+
+/**
+*   服务端渲染
+*/
 if (isDev) {
     // 开发环境时，没有dist目录
     // const devStatic = require('./util/devStatic');
@@ -31,6 +55,9 @@ if (isDev) {
 }
 
 
+/**
+*   端口监听
+*/
 app.listen(8899, function() {
     console.log('server is listening on 8899');
 });
