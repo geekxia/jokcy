@@ -27,7 +27,10 @@ app.use(session({
     secret: 'react node class'
 }));
 
-app.use(favicon(path.join(__dirname, '../favicon.ico')))
+app.use(favicon(path.join(__dirname, '../favicon.ico')));
+
+app.use('/api/user', require('./util/login')); // 登录接口
+app.use('/api', require('./util/proxy'));      // 接口代理
 
 
 
