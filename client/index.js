@@ -4,14 +4,16 @@ import App from './views/App.js';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
-import appState from './store/appState';
+import AppState from './store/AppState';
+
+const initialState = window.__INITIAL__STATE__ || {};
 
 // AppContainer包裹，代码热更新
 const root = document.getElementById('root');
 const render = Component => {
     ReactDOM.hydrate(
         <AppContainer>
-            <Provider appState={appState}>
+            <Provider appState={new AppState(initialState.appState)}>
                 <BrowserRouter>
                     <Component />
                 </BrowserRouter>

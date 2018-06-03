@@ -37,6 +37,10 @@ let config = {
     plugins: [
         new HTMLPlugin({
             template: path.join(__dirname, '../client/template.html')
+        }),
+        new HTMLPlugin({
+            template: '!!ejs-compiled-loader!' + path.join(__dirname, '../client/server.template.ejs'),
+            filename: 'server.ejs'
         })
     ]
 }
@@ -53,6 +57,10 @@ if (isDev) {
         publicPath: '/public/',
         historyApiFallback: {
             index: '/public/index.html'
+        },
+        // 客户端下带 ‘/api’的请求，都代理到 8899端口的node服务
+        proxy: {
+            '/api': 'http://localhost:8899'
         }
     };
 
